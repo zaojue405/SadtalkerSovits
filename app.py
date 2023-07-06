@@ -185,9 +185,15 @@ def sadtalker_demo():
 
                 with gr.Tabs(elem_id="sadtalker_genearted"):
                         gen_video = gr.Video(label="Generated video", format="mp4").style(width=256)
-
-
-
+            submit.click(
+                    fn=sad_talker.test, 
+                    inputs=[source_image,
+                            driven_audio,
+                            preprocess_type,
+                            is_still_mode,
+                            enhancer], 
+                    outputs=[gen_video]
+                    
        
 
     return sadtalker_interface
