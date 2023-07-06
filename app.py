@@ -83,8 +83,8 @@ def download_model(speaker):
     else:
         # 下载模型文件到指定的目录
         repo_id = speakers_dict[speaker]
-        generator_path = hf_hub_download(repo_id, ckpt_name, destination=model_dir)
-        config_path = hf_hub_download(repo_id, config_dict[speaker], destination=model_dir)
+        generator_path = hf_hub_download(repo_id, ckpt_name)
+        config_path = hf_hub_download(repo_id, config_dict[speaker])
     
     hparams = HParams(**json.loads(Path(config_path).read_text()))
     device = "cuda" if torch.cuda.is_available() else "cpu"
