@@ -71,7 +71,7 @@ def download_model(speaker):
     
     ckpt_name = ckpt_name_dict[speaker]
     
-    model_dir = r".\models"  # 模型存放的目录路径
+    model_dir = r"./models"  # 模型存放的目录路径
     generator_path = os.path.join(model_dir, ckpt_name)
     config_path = os.path.join(model_dir, config_dict[speaker])
     print(generator_path)
