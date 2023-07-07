@@ -55,7 +55,7 @@ class SadTalker():
             self.preprocess_model = CropAndExtract(self.path_of_lm_croper, self.path_of_net_recon_model, self.dir_of_BFM_fitting, self.device)
 
     def test(self, source_image, driven_audio, preprocess='crop', still_mode=False, use_enhancer=False, result_dir='./results/'):
-
+        print('starrt convert')
         ### crop: only model,
 
         if self.lazy_load:

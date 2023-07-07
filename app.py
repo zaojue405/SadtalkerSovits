@@ -144,9 +144,9 @@ def sadtalker_demo():
     sad_talker = SadTalker(lazy_load=True)
 
     with gr.Blocks(analytics_enabled=False) as sadtalker_interface:
-        gr.Markdown("<div align='center'> <h2> 😭 SadTalker And Sovits</span> </h2>" \
-              
-                     <a style='font-size:18px;color: #efefef' href='https://github.com/zaojue405/SadtalkerSovits'> Github </div>")
+        gr.Markdown("<div align='center'> <h2> 😭 SadTalker And Sovits</span> </h2>\
+                     <a style='font-size:18px;color: #efefef' href='https://github.com/zaojue405/SadtalkerSovits'> Github </a></div>")
+
         
         with gr.Row().style(equal_height=False):
             with gr.Column(variant='panel'):
