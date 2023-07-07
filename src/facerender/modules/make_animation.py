@@ -29,7 +29,7 @@ def normalize_kp(kp_source, kp_driving, kp_driving_initial, adapt_movement_scale
 def headpose_pred_to_degree(pred):
     device = pred.device
     idx_tensor = [idx for idx in range(66)]
-    idx_tensor = torch.FloatTensor(idx_tensor).to(device)
+    idx_tensor = torch.FloatTensor(idx_tensor).type_as(pred).to(device)
     pred = F.softmax(pred)
     degree = torch.sum(pred*idx_tensor, 1) * 3 - 99
     return degree
@@ -102,7 +102,7 @@ def keypoint_transformation(kp_canonical, he, wo_exp=False):
 def make_animation(source_image, source_semantics, target_semantics,
                             generator, kp_detector, he_estimator, mapping, 
                             yaw_c_seq=None, pitch_c_seq=None, roll_c_seq=None,
-                            use_exp=True):
+                            use_exp=True, use_half=False):
     with torch.no_grad():
         predictions = []
 
@@ -111,6 +111,8 @@ def make_animation(source_image, source_semantics, target_semantics,
         kp_source = keypoint_transformation(kp_canonical, he_source)
     
         for frame_idx in tqdm(range(target_semantics.shape[1]), 'Face Renderer:'):
+            # still check the dimension
+            # print(target_semantics.shape, source_semantics.shape)
             target_semantics_frame = target_semantics[:, frame_idx]
             he_driving = mapping(target_semantics_frame)
             if yaw_c_seq is not None:
@@ -122,8 +124,6 @@ def make_animation(source_image, source_semantics, target_semantics,
             
             kp_driving = keypoint_transformation(kp_canonical, he_driving)
                 
-            #kp_norm = normalize_kp(kp_source=kp_source, kp_driving=kp_driving,
-                                   #kp_driving_initial=kp_driving_initial)
             kp_norm = kp_driving
             out = generator(source_image, kp_source=kp_source, kp_driving=kp_norm)
             '''
